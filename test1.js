@@ -1,5 +1,29 @@
+
 javascript: (() => {
-  const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; xCfg64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
+  const userAgents = [
+    // Chrome - Windows
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.178 Safari/537.36",
+
+    // Firefox - Windows
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+    "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
+
+    // Edge
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.61",
+
+    // Safari - macOS
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+
+    // iPhone Safari
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
+
+    // Android - Chrome Mobile
+    "Mozilla/5.0 (Linux; Android 12; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.71 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 11; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
+  ];
 
   const ImportError = {
     NeedSignIn: "NEED_SIGN_IN",
@@ -8,6 +32,22 @@ javascript: (() => {
     NotFoundReviewLink: "NOT_FOUND_REVIEW_LINK",
     FetchUrlFailed: "Failed to fetch",
   };
+
+  const Selector = {
+    ReviewSection: "[data-hook='review']",
+    Author: "div.a-profile-content > span.a-profile-name",
+    Content: "span[data-hook='review-body'] > span",
+    Avatar: "div.a-profile-avatar > img",
+    HelpfulVotes: 'span[data-hook="helpful-vote-statement"]',
+    Photos: '.review-image-tile-section img[data-hook="review-image-tile"]',
+    Rating: "i[data-hook='review-star-rating']",
+    Date: 'span[data-hook="review-date"]',
+    Rating2: "i[data-hook='cmps-review-star-rating']",
+    Photos2: 'img[data-hook="cmps-review-image-tile"]',
+    SeeMoreReviews: 'a[data-hook="see-all-reviews-link-foot"]',
+    TotalReviewsFilter: "[data-hook='cr-filter-info-review-rating-count']",
+  };
+
   const multiLangDate = {
     "on ": "",
     "le ": "",
@@ -112,6 +152,21 @@ javascript: (() => {
     października: "october",
     listopada: "november",
     grudnia: "december",
+
+    //in
+    //hi
+    जनवरी: "january",
+    फ़रवरी: "february",
+    मार्च: "march",
+    अप्रैल: "april",
+    मई: "may",
+    जून: "june",
+    जुलाई: "july",
+    अगस्त: "august",
+    सितंबर: "september",
+    अक्टूबर: "october",
+    नवंबर: "november",
+    दिसंबर: "december",
   };
 
   const COUNTRY_MAP_CODE = {
@@ -343,7 +398,7 @@ javascript: (() => {
     "United Arab Emirates": "AE",
     "United Kingdom": "GB",
     "United States": "US",
-  
+
     // español - ES
     Bélgica: "BE",
     Brasil: "BR",
@@ -359,14 +414,14 @@ javascript: (() => {
     Polonia: "PL",
     "Arabia Saudita": "SA",
     Singapur: "SG",
-    "Sudáfrica": "ZA",
+    Sudáfrica: "ZA",
     España: "ES",
     Suecia: "SE",
     Turquía: "TR",
     "Emiratos Árabes Unidos": "AE",
     "Reino Unido": "GB",
     "Estados Unidos": "US",
-  
+
     // العربية - AR
     أستراليا: "AU",
     بلجيكا: "BE",
@@ -392,7 +447,7 @@ javascript: (() => {
     "الإمارات العربية المتحدة": "AE",
     "المملكة المتحدة": "GB",
     "الولايات المتحدة": "US",
-  
+
     // Deutsch - DE
     Australien: "AU",
     Belgien: "BE",
@@ -410,14 +465,14 @@ javascript: (() => {
     Polen: "PL",
     "Saudi-Arabien": "SA",
     Singapur: "SG",
-    "Südafrika": "ZA",
+    Südafrika: "ZA",
     Spanien: "ES",
     Schweden: "SE",
     Türkei: "TR",
     "Vereinigte Arabische Emirate": "AE",
     "Vereinigtes Königreich": "GB",
     "Vereinigte Staaten": "US",
-  
+
     // עברית - HE
     אוסטרליה: "AU",
     בלגיה: "BE",
@@ -443,7 +498,7 @@ javascript: (() => {
     "איחוד האמירויות הערביות": "AE",
     "הממלכה המאוחדת": "GB",
     "ארצות הברית": "US",
-  
+
     // 한국어 - KO
     호주: "AU",
     벨기에: "BE",
@@ -469,7 +524,7 @@ javascript: (() => {
     아랍에미리트: "AE",
     영국: "GB",
     미국: "US",
-  
+
     // português - PT
     Austrália: "AU",
     Bélgica: "BE",
@@ -495,7 +550,7 @@ javascript: (() => {
     "Emirados Árabes Unidos": "AE",
     "Reino Unido": "GB",
     "Estados Unidos": "US",
-  
+
     // 中文 (简体) - ZH-CN
     澳大利亚: "AU",
     比利时: "BE",
@@ -521,7 +576,7 @@ javascript: (() => {
     阿拉伯联合酋长国: "AE",
     英国: "GB",
     美国: "US",
-  
+
     // 中文 (繁體) - ZH-TW
     澳洲: "AU",
     比利時: "BE",
@@ -546,41 +601,32 @@ javascript: (() => {
     土耳其: "TR",
     阿拉伯聯合大公國: "AE",
     英國: "GB",
-    美國: "US"
+    美國: "US",
   };
   const amazonDomainToCountryCode = {
-    "com": "US",
+    com: "US",
     "co.uk": "GB",
-    "de": "DE",
-    "fr": "FR",
-    "it": "IT",
-    "es": "ES",
-    "ca": "CA",
+    de: "DE",
+    fr: "FR",
+    it: "IT",
+    es: "ES",
+    ca: "CA",
     "com.mx": "MX",
     "com.br": "BR",
     "com.au": "AU",
     "co.jp": "JP",
-    "in": "IN",
-    "nl": "NL",
-    "sg": "SG",
-    "ae": "AE",
-    "sa": "SA",
-    "se": "SE",
-    "pl": "PL",
-    "eg": "EG",
+    in: "IN",
+    nl: "NL",
+    sg: "SG",
+    ae: "AE",
+    sa: "SA",
+    se: "SE",
+    pl: "PL",
+    eg: "EG",
     "com.tr": "TR",
-    "cn": "CN"
+    cn: "CN",
   };
-  
-/*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Transforms a date string from any language to a US date string.
-   * If the string is not recognized as a date, returns the current date.
-   * @param {string} dateString
-   * @returns {string} the US date string
-   */
-/*******  e2e1608b-d4e5-43d2-9967-7d44cbb1ea58  *******/  
-  
+
   function removeFiller(str) {
     const newStr = str.match(/\d+/g);
     return (
@@ -599,10 +645,10 @@ javascript: (() => {
             str.indexOf(" tarihinde ") > -1 &&
               ((str = str.split(" tarihinde ")[0]),
               (str = str.split("t\xFCrkiye\u2019de ")[0])))),
+      str.indexOf(" को ") > -1 && (str = str.split(" को ")[0]),
       str
     );
   }
-
 
   function transformDateTime(dateString) {
     try {
@@ -643,39 +689,25 @@ javascript: (() => {
     return "US";
   }
 
-  function extractCountryTest(inputString,defaultCountry="US") {
+  function extractCountryTest(inputString, defaultCountry = "US") {
     if (!inputString) return defaultCountry;
-  
+
     for (const countryName in countryCodeMap) {
       if (inputString.includes(countryName)) {
         return countryCodeMap[countryName];
       }
     }
-  
+
     return defaultCountry;
   }
 
-  const Selector = {
-    ReviewSection: "[data-hook='review']",
-    Author: "div.a-profile-content > span.a-profile-name",
-    Content: "span[data-hook='review-body'] > span",
-    Avatar: "div.a-profile-avatar > img",
-    HelpfulVotes: 'span[data-hook="helpful-vote-statement"]',
-    Photos: '.review-image-tile-section img[data-hook="review-image-tile"]',
-    Rating: "i[data-hook='review-star-rating']",
-    Date: 'span[data-hook="review-date"]',
-    Rating2: "i[data-hook='cmps-review-star-rating']",
-    Photos2: 'img[data-hook="cmps-review-image-tile"]',
-    SeeMoreReviews: 'a[data-hook="see-all-reviews-link-foot"]',
-    TotalReviewsFilter: "[data-hook='cr-filter-info-review-rating-count']",
-  };
   class AmazonCrawler {
     constructor({ params }) {
       this.importOptions = params;
       this.reviewLink = null;
       this.crawledReviews = {};
       this.errorMessage = "";
-      this.requestCount=0;
+      this.requestCount = 0;
     }
 
     getPageForImport() {
@@ -686,13 +718,14 @@ javascript: (() => {
       if (this.reviewLink) {
         return this.reviewLink;
       }
-
+      const userAgent =
+        userAgents[Math.floor(Math.random() * userAgents.length)];
       const response = await fetch(productLink, {
         credentials: "include",
         headers: {
-            "User-Agent": userAgent,
+          "User-Agent": userAgent,
         },
-    });;
+      });
       const html = await response.text();
 
       const parser = new DOMParser();
@@ -758,17 +791,62 @@ javascript: (() => {
         return false;
       }
 
+      if (this.importOptions?.hasContentText && !review.content) {
+        return false;
+      }
+
       return true;
     }
 
+    parseReviewSection(review, url) {
+      const id = review.getAttribute("id");
+      const author =
+        review.querySelector(Selector.Author)?.textContent?.trim() || null;
+      const content =
+        review.querySelector(Selector.Content)?.textContent?.trim() || "";
+      const helpfulVotes = !!review
+        .querySelector(Selector.HelpfulVotes)
+        ?.textContent?.trim();
+      let photoSections = review.querySelectorAll(Selector.Photos);
+      if (!photoSections.length)
+        photoSections = review.querySelectorAll(Selector.Photos2);
+      const photos = Array.from(photoSections).map((img) => {
+        const src = img.getAttribute("src");
+        return src?.includes("._SY88.") ? src.replace("._SY88.", ".") : src;
+      });
+      let ratingText =
+        review.querySelector(Selector.Rating)?.textContent?.trim() ||
+        review.querySelector(Selector.Rating2)?.textContent?.trim();
+      const rating = transformRating(ratingText);
+      const dateText = review.querySelector(Selector.Date)?.textContent?.trim();
+      const time = transformDateTime(dateText);
+      const match = url.match(/amazon\.([a-z.]+)\//i);
+      if (!match) return null;
+      const domain = match[1];
+      const countryCode = amazonDomainToCountryCode[domain] || "US";
+      const country = extractCountryTest(dateText, countryCode);
+
+      return {
+        reviewId: id,
+        name: author,
+        content,
+        helpfulVotes,
+        photos,
+        rating,
+        time,
+        country,
+      };
+    }
     async getReviews(url) {
       this.requestCount++;
+      const userAgent =
+        userAgents[Math.floor(Math.random() * userAgents.length)];
       const response = await fetch(url, {
         credentials: "include",
         headers: {
-            "User-Agent": userAgent,
+          "User-Agent": userAgent,
         },
-    });
+      });
       if (!response.ok) {
         this.errorMessage += ` - fetch reviews from ${url} failed`;
         return;
@@ -777,88 +855,26 @@ javascript: (() => {
 
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
-      const loginForm = doc.querySelector('form[name="signIn"]');
+      const signInForm = doc.querySelector('form[name="signIn"]');
 
-      if (!!loginForm) {
+      if (!!signInForm) {
         throw new Error(ImportError.NeedSignIn);
       }
 
       const reviewSections = doc.querySelectorAll(Selector.ReviewSection);
-      // if (reviewSections.length === 0) {
-      //   throw new Error(ImportError.NotFoundPage);
-      // }
+      if (reviewSections.length === 0) {
+        throw new Error(`url ${url} - ${ImportError.NotFoundPage}`);
+      }
 
-      const totalReviews = doc
+      const totalReviewsText = doc
         .querySelector(Selector.TotalReviewsFilter)
         .textContent.trim();
-      const match = totalReviews.replace(/,/g, '').match(/\d+/g);
+      const numbers = totalReviewsText.replace(/,/g, "").match(/\d+/g);
 
-      const reviewCount = match ? match[1] : 0;
+      const reviewCount = numbers ? numbers[1] : 0;
       const totalReviewsFilters = reviewCount + " reviews";
       const reviews = Array.from(reviewSections).map((review) => {
-        const id = review.getAttribute("id");
-
-        const authorEl = review.querySelector(Selector.Author);
-        const author = authorEl?.textContent?.trim() || null;
-
-        const content =
-          review.querySelector(Selector.Content)?.textContent?.trim() || "";
-
-        const helpfulVotesText = review
-          .querySelector(Selector.HelpfulVotes)
-          ?.textContent?.trim();
-        const helpfulVotes = !!helpfulVotesText;
-
-        let photoSections = review.querySelectorAll(Selector.Photos);
-        if (!photoSections.length) {
-          photoSections = review.querySelectorAll(Selector.Photos2);
-        }
-
-        let photos = [];
-        if (photoSections.length) {
-          photos = Array.from(photoSections).map((img) => {
-            const src = img.getAttribute("src");
-            if (src?.includes("._SY88.")) {
-              return src.replace("._SY88.", ".");
-            }
-            return src;
-          });
-        }
-
-        let ratingText = review
-          .querySelector(Selector.Rating)
-          ?.textContent?.trim();
-        if (!ratingText) {
-          ratingText = review
-            .querySelector(Selector.Rating2)
-            ?.textContent?.trim();
-        }
-
-        const rating = transformRating(ratingText);
-
-        const dateText = review
-          .querySelector(Selector.Date)
-          ?.textContent?.trim();
-        const time = transformDateTime(dateText);
-        
-
-        const match = url.match(/amazon\.([a-z.]+)\//i);
-        if (!match) return null;
-      
-        const domain = match[1];
-        const countryCode = amazonDomainToCountryCode[domain] || "US";
-        const country = extractCountryTest(dateText,countryCode);
-
-        return {
-          reviewId: id,
-          name: author,
-          content,
-          helpfulVotes,
-          photos,
-          rating,
-          time,
-          country,
-        };
+        return this.parseReviewSection(review, url);
       });
       return { reviews, total: totalReviewsFilters };
     }
@@ -884,9 +900,6 @@ javascript: (() => {
       }
       return 500;
     }
-
-    // ...existing code...
-
     async handleUrl(urlLink, progressCallback, idx) {
       let crawledReview = [];
       let productAsin = null;
@@ -902,17 +915,15 @@ javascript: (() => {
             `Không thể trích xuất productAsin từ URL: ${urlLink}`
           );
         }
-        let totalReviewsOfAmazon=0;
+        let totalReviewsOfAmazon = 0;
+
         for (let page = 1; page <= 10; page++) {
-         
           const url = await this.generateReviewUrlWithPage(modifyUrl, page);
-          if(page>1&&totalReviewsOfAmazon<(page-1)*10){
+          if (page > 1 && totalReviewsOfAmazon < (page - 1) * 10) {
             break;
           }
-         const { reviews, total } = await this.getReviews(url);
-          totalReviewsOfAmazon=parseInt(total);
-
-          let totalReviews = total; // chỉ lấy tổng ở page đầu
+          const { reviews, total } = await this.getReviews(url);
+          totalReviewsOfAmazon = parseInt(total);
 
           if (!reviews || reviews.length === 0) {
             break;
@@ -923,16 +934,14 @@ javascript: (() => {
           );
           crawledReview.push(...filteredReviews);
 
-          // Cập nhật tiến độ sau mỗi page
           if (typeof progressCallback === "function") {
-            progressCallback(idx, crawledReview.length, totalReviews);
+            progressCallback(idx, crawledReview.length, total);
           }
-
           if (crawledReview.length >= this.importOptions.limit) {
             break;
           }
 
-          const delay = this.importOptions.requestDelay || 500;
+          const delay = this.importOptions.requestDelay || 2000;
           await new Promise((resolve) => setTimeout(resolve, delay));
         }
 
@@ -959,16 +968,17 @@ javascript: (() => {
         return { success: false, error: errorMessage, productAsin };
       }
     }
-
     async scrape() {
       let urlLink = this.importOptions.url;
       if (!urlLink) {
         alert("Please enter a valid Amazon product link.");
         return;
       }
+      let urlArray = urlLink.split(",").map((url) => url.trim());
 
-      const urlArray = urlLink.split(",").map((url) => url.trim());
-
+      if (urlArray.length > 100) {
+        urlArray = urlArray.slice(0, 100);
+      }
       for (let i = 0; i < urlArray.length; i++) {
         const urlLink = urlArray[i].trim();
         if (!urlLink.includes("amazon")) {
@@ -976,7 +986,6 @@ javascript: (() => {
           return;
         }
       }
-
       // Hiển thị progress box
       progressBox.style.display = "block";
       const progressList = document.getElementById("progress-list");
@@ -990,17 +999,21 @@ javascript: (() => {
     <b>Reviews:</b> <span id="review-count-${idx}">0</span>
     <span id="progress-status-${idx}" style="color: #888; margin-left: 8px;">(waiting)</span>
     <span id="review-total-${idx}" style="color: #888; margin-left: 8px;"></span>
+    <br>
+<span style="font-size:12px;">
+  <span id="start-time-${idx}"></span>
+  <span id="end-time-${idx}"></span>
+  <span id="duration-${idx}"></span>
+</span>
   </div>`;
         })
         .join("");
 
-
-        const requestStat = document.createElement("div");
-        requestStat.id = "request-stat";
-        requestStat.style.marginTop = "10px";
-        requestStat.style.fontSize = "13px";
-        progressBox.appendChild(requestStat);
-
+      const requestStat = document.createElement("div");
+      requestStat.id = "request-stat";
+      requestStat.style.marginTop = "10px";
+      requestStat.style.fontSize = "13px";
+      progressBox.appendChild(requestStat);
 
       // Xử lý từng link và cập nhật giao diện liên tục
       await Promise.all(
@@ -1011,17 +1024,28 @@ javascript: (() => {
             document.getElementById(`review-count-${index}`).innerText =
               reviewCount;
             if (totalReviews) {
-              if(totalReviews==="null reviews"){
+              if (totalReviews === "null reviews") {
                 document.getElementById(
                   `review-total-${index}`
                 ).innerText = `| Failed to get reviews page`;
               }
               document.getElementById(
                 `review-total-${index}`
-              ).innerText = `| Tổng reviews đáp ứng: ${totalReviews}`;
+              ).innerText = `| Tổng reviews fetch url: ${totalReviews}`;
             }
           };
+          const startTime = Date.now();
           const result = await this.handleUrl(urlLink, progressCallback, idx);
+
+          // Ghi nhận thời gian kết thúc
+          const endTime = Date.now();
+          document.getElementById(`end-time-${idx}`).innerText =
+            " | End: " + new Date(endTime).toLocaleTimeString();
+          document.getElementById(`start-time-${idx}`).innerText =
+            " | Start: " + new Date(startTime).toLocaleTimeString();
+          document.getElementById(`duration-${idx}`).innerText =
+            " | Duration: " + ((endTime - startTime) / 1000).toFixed(2) + "s";
+
           let count = 0;
           if (
             result &&
@@ -1040,18 +1064,14 @@ javascript: (() => {
             "(done)";
         })
       );
-      // ...existing code...
-
-      // progressBox.style.display = "none";
       return {
         reviews: this.crawledReviews,
         code: this.getStatusCode(this.errorMessage),
         errorMessage: this.errorMessage,
       };
     }
-
-    // ...existing code...
   }
+
   const progressBox = document.createElement("div");
   progressBox.style.position = "fixed";
   progressBox.style.top = "50%";
@@ -1062,6 +1082,8 @@ javascript: (() => {
   progressBox.style.borderRadius = "8px";
   progressBox.style.padding = "16px";
   progressBox.style.minWidth = "260px";
+  progressBox.style.maxHeight = "70vh"; // Thêm giới hạn chiều cao
+  progressBox.style.overflowY = "auto"; // Thêm thanh kéo dọc khi tràn
   progressBox.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)";
   progressBox.style.zIndex = "10001";
   progressBox.style.fontFamily = "Arial, sans-serif";
@@ -1087,17 +1109,21 @@ javascript: (() => {
   formContainer.style.fontFamily = "Arial, sans-serif";
   formContainer.style.maxHeight = "90vh";
   formContainer.style.overflowY = "auto";
-
-  // <div style="margin-bottom: 15px;">
-  //   <label style="display: block; margin-bottom: 5px; font-weight: bold;">Amazon product link</label>
-  //   <input id="amazon-link" type="text" placeholder="https://www.amazon.com/..." style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
-  //   <div style="font-size: 12px; color: #666; margin-top: 5px;">Example: https://www.amazon.com/dp/B0B15QM5LL</div>
-  // </div>
-
   formContainer.innerHTML = `
       <h2 style="margin-top: 0; color: #333;">Amazon Product Tool</h2>
-      
-
+        <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Shop Name</label>
+    <input id="shop-name" type="text"  style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+  </div>
+    <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Product Id</label>
+    <input id="product-id" type="number"  style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+  </div>
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Amazon product link</label>
+    <input id="amazon-link" type="text" placeholder="https://www.amazon.com/..." style="width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+    <div style="font-size: 12px; color: #666; margin-top: 5px;">Example: https://www.amazon.com/dp/B0B15QM5LL</div>
+  </div>
       
       <div style="margin-bottom: 15px;">
         <label style="display: block; margin-bottom: 5px; font-weight: bold;">Quantity</label>
@@ -1139,6 +1165,7 @@ javascript: (() => {
         <button id="submit-btn" style="background-color: #4CAF50; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Submit</button>
         <button id="cancel-btn" style="background-color: #f44336; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Cancel</button>
       </div>
+
     `;
 
   const epochStart = new Date(1970, 0, 1);
@@ -1153,6 +1180,10 @@ javascript: (() => {
 
   // Add the form to the page
   document.body.appendChild(formContainer);
+  const laiResultDiv = document.createElement("div");
+  laiResultDiv.id = "lai-result";
+  laiResultDiv.style.marginTop = "15px";
+  formContainer.appendChild(laiResultDiv);
 
   setTimeout(() => {
     document.getElementById("start-date").value = formatDate(epochStart);
@@ -1162,25 +1193,52 @@ javascript: (() => {
   document.getElementById("cancel-btn").addEventListener("click", () => {
     document.body.removeChild(formContainer);
   });
-  // https://www.amazon.com/inteligente-Bluetooth-frecuencia-deportivos-rastreador/dp/B0F1YRFD6S,https://www.amazon.com/Cuckoo-CR-3032-Commercial-Cooker-Silver/dp/B00U1XN4L8,https://www.amazon.com/dp/B0CP8D4SM2,https://www.amazon.com/dp/B0DTB4R3VP,https://www.amazon.com/dp/B0D33NC672,https://www.amazon.com/dp/B0D9NHYR82,https://www.amazon.com/dp/B0DRP687WH
-
-  // https://www.amazon.com/product-reviews/
-//https://www.amazon.co.uk/Harrier-Rounded-Standing-Patio-Heater/dp/B08TMTFF6G
-
-//https://www.amazon.in/Combo-Pack-Chemistry-2020-2021-Examination/dp/B083C8Q76Q
-
-  const stringUrl =
-    "https://www.amazon.com/inteligente-Bluetooth-frecuencia-deportivos-rastreador/dp/B0F1YRFD6S,https://www.amazon.com/Cuckoo-CR-3032-Commercial-Cooker-Silver/dp/B00U1XN4L8,https://www.amazon.com/dp/B0CP8D4SM2,https://www.amazon.com/dp/B0DTB4R3VP,https://www.amazon.com/dp/B0D33NC672,https://www.amazon.com/dp/B0D9NHYR82,https://www.amazon.com/dp/B0DRP687WH";
+  async function sendReviewsToLAI(productId, shopName, url, reviews) {
+    const data = {
+      from: "amazon",
+      product_id: productId,
+      shop_name: shopName,
+      reviews: reviews,
+      url: url,
+    };
+    try {
+      document.getElementById("lai-result").innerHTML = `Loading...`;
+      const response = await fetch(
+        "https://reviews-importer.test/api/import/third-party2",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (!response.ok) { // response.ok là false nếu status >= 400
+        const errorData = await response.json().catch(() => ({}));
+        throw { status: response.status, ...errorData };
+      }
+      return response.json();
+    } catch (error) {
+      console.log("Error sending reviews to LAI:", error);
+      throw error;
+    }
+  }
   document.getElementById("submit-btn").addEventListener("click", () => {
-    // const amazonLink = document.getElementById("amazon-link").value;
-    // if (amazonLink === "") {
-    //   alert("Please enter a valid Amazon product link.");
-    //   return;
-    // }
-    // if (!amazonLink.includes("amazon")) {
-    //   alert("Please enter a valid Amazon product link.");
-    //   return;
-    // }
+    const progressList = document.getElementById("progress-list");
+    if (progressList) progressList.innerHTML = "";
+    const laiResult = document.getElementById("lai-result");
+    if (laiResult) laiResult.innerHTML = "";
+    const requestStat = document.getElementById("request-stat");
+    if (requestStat) requestStat.innerHTML = "";
+
+    const amazonLink = document.getElementById("amazon-link").value;
+    if (amazonLink === "") {
+      alert("Please enter a valid Amazon product link.");
+      return;
+    }
+
+    const shopName = document.getElementById("shop-name").value;
+    const productId = parseInt(document.getElementById("product-id").value);
 
     const quantity = parseInt(document.getElementById("quantity11").value);
     const startDate = document.getElementById("start-date").value;
@@ -1190,7 +1248,7 @@ javascript: (() => {
     const votedHelpful = document.getElementById("helpful").checked;
 
     console.log({
-      stringUrl,
+      amazonLink,
       quantity,
       startDate,
       endDate,
@@ -1200,7 +1258,7 @@ javascript: (() => {
     });
 
     const params = {
-      url: stringUrl,
+      url: amazonLink,
       limit: quantity,
       dateRange: {
         start: startDate,
@@ -1215,21 +1273,61 @@ javascript: (() => {
     });
     let startTime = Date.now();
 
-    amazonCrawler
-      .scrape()
-      .then((response) => {
-        const endTime = Date.now();
-        const totalSeconds = ((endTime - startTime) / 1000).toFixed(2);
-        document.getElementById("request-stat").innerText =
-          `Tổng request: ${amazonCrawler.requestCount}\nTổng thời gian chạy: ${totalSeconds} giây`;
-        console.log("response", response);
+    function showLaiResult(res) {
+      document.getElementById("lai-result").innerHTML = `
+        <div style="margin-top:10px;padding:10px;border:1px solid #4caf50;border-radius:6px;background:#f6fff6;">
+          <b>Kết quả gửi lên LAI:</b><br>
+          Success: ${res.success ? "✔️" : "❌"}<br>
+          Message: ${res.message}<br>
+          Imported: ${res.data?.imported ?? "-"}<br>
+          Duplicated: ${res.data?.duplicated ?? "-"}
+        </div>
+      `;
+    }
+    
+    function showLaiError(error) {
+      let errorHtml = "";
+      if (error?.errors && typeof error.errors === "object") {
+        const allErrors = Object.values(error.errors).flat();
+        const uniqueErrors = [...new Set(allErrors)];
+        errorHtml = uniqueErrors.map(msg => `<div>${msg}</div>`).join("");
+      } else {
+        errorHtml = error?.message || error;
+      }
+      document.getElementById("lai-result").innerHTML = `
+        <div style="margin-top:10px;padding:10px;border:1px solid #f44336;border-radius:6px;background:#fff6f6;">
+          <b>Lỗi gửi lên LAI:</b><br>
+          ${errorHtml}
+        </div>
+      `;
+    }
+
+    function showRequestStat(requestCount, startTime) {
+      const endTime = Date.now();
+      const totalSeconds = ((endTime - startTime) / 1000).toFixed(2);
+      document.getElementById("request-stat").innerText =
+        `Tổng request: ${requestCount}\nTổng thời gian chạy: ${totalSeconds} giây`;
+    }
+
+    amazonCrawler.scrape()
+  .then((response) => {
+    showRequestStat(amazonCrawler.requestCount, startTime);
+    const reviews = Object.values(response.reviews).flat();
+    sendReviewsToLAI(productId, shopName, amazonLink, reviews)
+      .then((res) => {
+        showLaiResult(res);
+        if (res.status === 200) {
+          console.log("send reviews success");
+        }
       })
       .catch((error) => {
-        const endTime = Date.now();
-        const totalSeconds = ((endTime - startTime) / 1000).toFixed(2);
-        document.getElementById("request-stat").innerText =
-          `Tổng request: ${amazonCrawler.requestCount}\nTổng thời gian chạy: ${totalSeconds} giây`;
-        console.error("Error:", error);
+        console.error("Error sending reviews to LAI2:", error);
+        showLaiError(error);
       });
+  })
+  .catch((error) => {
+    showRequestStat(amazonCrawler.requestCount, startTime);
+    console.error("Error:", error);
+  });
   });
 })();

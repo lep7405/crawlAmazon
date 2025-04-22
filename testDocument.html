@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test document methods</title>
+  <style>
+    #output { margin-top: 10px; color: #333; }
+    .test-element { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h2>Test document methods</h2>
+  <button onclick="testCreateElement()">createElement</button>
+  <button onclick="testGetElementById()">getElementById</button>
+  <button onclick="testGetElementsByClassName()">getElementsByClassName</button>
+  <button onclick="testGetElementsByTagName()">getElementsByTagName</button>
+  <button onclick="testQuerySelector()">querySelector</button>
+  <button onclick="testQuerySelectorAll()">querySelectorAll</button>
+  <button onclick="testRemove()">remove</button>
+  <button onclick="testWrite()">write</button>
+  <button onclick="testDocumentElement()">documentElement</button>
+  <button onclick="testBody()">body</button>
+  <button onclick="testHead()">head</button>
+  <button onclick="testTitle()">title</button>
+  <button onclick="testCookie()">cookie</button>
+  <button onclick="testLocation()">location</button>
+  <button onclick="testReadyState()">readyState</button>
+  <button onclick="testAddEventListener()">addEventListener</button>
+  <div id="output"></div>
+  <div id="test-area"></div>
+  <script>
+    function log(msg) {
+      document.getElementById('output').innerText = msg;
+    }
+
+    function testCreateElement() {
+      const el = document.createElement('div');
+      el.className = 'test-element';
+      el.innerText = 'Element created!';
+      document.getElementById('test-area').appendChild(el);
+      log('Created element and appended to #test-area');
+    }
+
+    function testGetElementById() {
+      const el = document.getElementById('test-area');
+      log('getElementById: ' + (el ? 'Found' : 'Not found'));
+    }
+
+    function testGetElementsByClassName() {
+      const els = document.getElementsByClassName('test-element');
+      log('getElementsByClassName: Found ' + els.length + ' elements');
+    }
+
+    function testGetElementsByTagName() {
+      const els = document.getElementsByTagName('button');
+      log('getElementsByTagName: Found ' + els.length + ' button elements');
+    }
+
+    function testQuerySelector() {
+      const el = document.querySelector('.test-element');
+      log('querySelector: ' + (el ? 'Found' : 'Not found'));
+    }
+
+    function testQuerySelectorAll() {
+      const els = document.querySelectorAll('button');
+      log('querySelectorAll: Found ' + els.length + ' button elements');
+    }
+
+    function testRemove() {
+      const el = document.querySelector('.test-element');
+      if (el) {
+        el.remove();
+        log('Removed one .test-element');
+      } else {
+        log('No .test-element to remove');
+      }
+    }
+
+    function testWrite() {
+      document.write('<b>document.write called!</b>');
+    }
+
+    function testDocumentElement() {
+      log('documentElement tag: ' + document.documentElement.tagName);
+    }
+
+    function testBody() {
+      log('document.body tag: ' + document.body.tagName);
+    }
+
+    function testHead() {
+      log('document.head tag: ' + document.head.tagName);
+    }
+
+    function testTitle() {
+      log('document.title: ' + document.title);
+    }
+
+    function testCookie() {
+      document.cookie = "testcookie=1";
+      log('document.cookie: ' + document.cookie);
+    }
+
+    function testLocation() {
+      log('document.location.href: ' + document.location.href);
+    }
+
+    function testReadyState() {
+      log('document.readyState: ' + document.readyState);
+    }
+
+    function testAddEventListener() {
+      document.body.addEventListener('click', function handler() {
+        log('Body clicked! (eventListener test)');
+        document.body.removeEventListener('click', handler);
+      });
+      log('Click anywhere on the body to test addEventListener');
+    }
+  </script>
+</body>
+</html>

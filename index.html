@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    hello world
+    <script src="testThis.js"></script>
+    <script src="testThis2.js"></script>
+    <script>
+        // In ra một giá trị duy nhất để nhận diện window
+        console.log('Window của tab này:', window);
+        
+        // Gắn một giá trị ngẫu nhiên vào window để phân biệt
+        window.tabId = Math.random();
+        console.log('Tab ID:', window.tabId);
+      </script>
+</body>
+</html>

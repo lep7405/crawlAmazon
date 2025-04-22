@@ -1,0 +1,1 @@
+console.log('this2',window.name)

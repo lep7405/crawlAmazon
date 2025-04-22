@@ -6,3 +6,12 @@ console.log(date); // Kết quả: "december 12, 2024"
 const instance = new Date(date);
 console.log(instance); // Kết quả: Thu Dec 12 2024 00:00:00 GMT+0000 (Coordinated Universal Time)
 console.log(instance.toLocaleString("en-US"))
+
+
+
+if(99>99){
+    console.log("true")
+}
+else{
+    console.log("false")
+}
